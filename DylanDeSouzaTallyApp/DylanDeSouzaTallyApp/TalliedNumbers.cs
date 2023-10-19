@@ -31,9 +31,9 @@ namespace DylanDeSouzaTallyApp
 
         public static void AddNum(Button button)
         {
-            if (num != null)
+            if (button.Text == "+")
             {
-                if (button.Text == "+")
+                if (num != null)
                 {
                     lstTalliedNums.Add(num);
                     num = null;
@@ -55,21 +55,26 @@ namespace DylanDeSouzaTallyApp
 
         public static void DspLastNum(Editor editor, string num)
         {
-            if (tallies == 0)
+            if (num != null)
             {
-                editor.Text += num + "\n";
-                tallies += 1;
-            }
-            else
-            {
-                editor.Text += "+ " + num + "\n";
+                if (tallies == 0)
+                {
+                    editor.Text += num + "\n";
+                }
+                else
+                {
+                    editor.Text += "+ " + num + "\n";
+                }
                 tallies += 1;
             }
         }
 
         public static void SumNums(string num)
         {
-            sum += int.Parse(num);
+            if (num != null)
+            {
+                sum += int.Parse(num);
+            }
         }
 
         public static void DspSum(Label label)
