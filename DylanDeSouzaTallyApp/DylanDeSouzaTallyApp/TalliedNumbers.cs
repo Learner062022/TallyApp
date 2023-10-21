@@ -82,13 +82,14 @@ namespace DylanDeSouzaTallyApp
             label.Text = sum.ToString();
         }
 
-        public static void Reset(Editor editor)
+        public static void Reset(Editor editor, Label label)
         {
             lstTalliedNums.Clear();
             sum = 0;
             num = null;
             tallies = 0;
             editor.Text = string.Empty;
+            label.Text = "0";
         }
     }
 }

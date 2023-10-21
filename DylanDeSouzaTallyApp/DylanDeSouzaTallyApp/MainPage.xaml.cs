@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography;
 using Xamarin.Forms;
 
 namespace DylanDeSouzaTallyApp
@@ -18,17 +17,22 @@ namespace DylanDeSouzaTallyApp
 
             if (isPortrait)
             {
-                firstColumn.Width = new GridLength(1, GridUnitType.Star);
-                secondColumn.Width = new GridLength(0);
+                
+                Grid.SetRow(talliedNums, 0);
+                Grid.SetColumn(talliedNums, 0);
+                Grid.SetRow(keypad, 1);
+                Grid.SetColumn(keypad, 0);
             }
             else
             {
-                firstColumn.Width = new GridLength(1, GridUnitType.Star);
-                secondColumn.Width = new GridLength(1, GridUnitType.Star);
+                Grid.SetRow(talliedNums, 0);
+                Grid.SetColumn(talliedNums, 0);
+                Grid.SetRow(keypad, 0);
+                Grid.SetColumn(keypad, 1);
             }
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        void Button_Clicked(object sender, EventArgs e)
         {
             Button button = (Button)sender;
             TalliedNumbers.CreateNum(button);
@@ -42,7 +46,7 @@ namespace DylanDeSouzaTallyApp
             }
             if (button.Text == "C")
             {
-                TalliedNumbers.Reset(talliedNums);
+                TalliedNumbers.Reset(talliedNums, totalAmount);
             }
         }
     }
