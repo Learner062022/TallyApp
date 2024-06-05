@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Xml.Schema;
 using Xamarin.Forms;
 
 namespace DylanDeSouzaTallyApp
 {
     public partial class MainPage : ContentPage
     {
+        MainPageViewModel _viewModel = new MainPageViewModel();
+
         public MainPage()
         {
             InitializeComponent();
             SizeChanged += MainPageSizeChanged;
+            BindingContext = _viewModel;
         }
 
         void MainPageSizeChanged(object sender, EventArgs e)
@@ -35,18 +39,21 @@ namespace DylanDeSouzaTallyApp
         void Button_Clicked(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            TalliedNumbers.CreateNum(button);
-            TalliedNumbers.AddNum(button);
-            if (button.Text == "+")
+
+            if (int.TryParse(button.Text, out int _))
             {
-                string item = TalliedNumbers.GetLastNum();
-                TalliedNumbers.DspLastNum(talliedNums, item);
-                TalliedNumbers.SumNums(item);
-                TalliedNumbers.DspSum(totalAmount);
+                _viewModel.UpdateNumberEntered(button.Text);
             }
-            if (button.Text == "C")
+            else
             {
-                TalliedNumbers.Reset(talliedNums, totalAmount);
+                if (button.Text == "+")
+                {
+                    _viewModel.AddNumber();
+                }
+                else
+                {
+                    _viewModel.Clear();
+                }
             }
         }
     }
