@@ -4,85 +4,73 @@
              xmlns:dylandesouzatallyapp="clr-namespace:DylanDeSouzaTallyApp" 
              x:DataType="dylandesouzatallyapp:MainPageViewModel"
              x:Class="DylanDeSouzaTallyApp.MainPage">
-    <Grid>
-        <Grid x:Name="keypad">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseButtonStyle" TargetType="Button">
+                <Setter Property="Command" Value="{Binding ButtonCommand}"/>
+            </Style>
+            <Style x:Key="FirstRowButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+                <Setter Property="Grid.Row" Value="0"/>
+            </Style>
+            <Style x:Key="SecondButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+                <Setter Property="Grid.Row" Value="1"/>
+            </Style>
+            <Style x:Key="ThirdButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+                <Setter Property="Grid.Row" Value="2"/>
+            </Style>
+            <Style x:Key="FourthButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+                <Setter Property="Grid.Row" Value="3"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="editorGrid" Grid.Row="0" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid Grid.Column="0">
-                    <Button Text="7" Command="{Binding ButtonCommand}" CommandParameter="7"/>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Button Text="8" Command="{Binding ButtonCommand}" CommandParameter="8"/>
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Button Text="9" Command="{Binding ButtonCommand}" CommandParameter="9"/>
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="1">
-                <Grid Grid.Column="0">
-                    <Button Text="4" Command="{Binding ButtonCommand}" CommandParameter="4"/>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Button Text="5" Command="{Binding ButtonCommand}" CommandParameter="5"/>
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Button Text="6" Command="{Binding ButtonCommand}" CommandParameter="6"/>
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="2">
-                <Grid Grid.Column="0">
-                    <Button Text="1" Command="{Binding ButtonCommand}" CommandParameter="1"/>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Button Text="2" Command="{Binding ButtonCommand}" CommandParameter="2"/>
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Button Text="3" Command="{Binding ButtonCommand}" CommandParameter="3"/>
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="3">
-                <Grid Grid.Column="0">
-                    <Button Text="0" Command="{Binding ButtonCommand}" CommandParameter="0"/>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Button Text="C" Command="{Binding ClearCommand}"/>
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Button Text="+" Command="{Binding AddCommand}"/>
-                </Grid>
-            </Grid>
+            <Editor IsReadOnly="True" Text="{Binding NumericString}" x:Name="talliedNums"/>
+            <StackLayout x:Name="stackLayoutContainingLabels" Orientation="Horizontal" HorizontalOptions="End" Grid.Row="1">
+                <Label Text="Total :"/>
+                <Label Text="{Binding Total}"/>
+            </StackLayout>
         </Grid>
-        <Grid>
+
+        <Grid x:Name="keypad" Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Editor IsReadOnly="True" Margin="25" Text="{Binding NumericString}" x:Name="talliedNums">
-                            <Editor.Triggers>
-                                <Trigger TargetType="Editor" Property="Height" Value="0">
-                                    <Setter Property="Grid.RowSpan" Value="2"/>
-                                </Trigger>
-                            </Editor.Triggers>
-                        </Editor>
-                        <StackLayout x:Name="stackLayoutContainingLabels" Orientation="Horizontal" HorizontalOptions="End">
-                            <Label Text="Total :"/>
-                            <Label Text="{Binding Total}"/>
-                        </StackLayout>
-                    </Grid>
-                </Grid>
-            </Grid>
+            <Button Text="7" CommandParameter="7" Style="{StaticResource FirstRowButtonStyle}" Grid.Row="0" Grid.Column="0"/>
+            <Button Text="4" CommandParameter="4" Style="{StaticResource SecondButtonStyle}" Grid.Row="1" Grid.Column="0"/>
+            <Button Text="1" CommandParameter="1" Style="{StaticResource ThirdButtonStyle}" Grid.Row="2" Grid.Column="0"/>
+            <Button Text="0" CommandParameter="0" Style="{StaticResource FourthButtonStyle}" Grid.Row="3" Grid.Column="0"/>
+
+            <Button Text="8" CommandParameter="8" Style="{StaticResource FirstRowButtonStyle}" Grid.Row="0" Grid.Column="1"/>
+            <Button Text="5" CommandParameter="5" Style="{StaticResource SecondButtonStyle}" Grid.Row="1" Grid.Column="1"/>
+            <Button Text="2" CommandParameter="2" Style="{StaticResource ThirdButtonStyle}" Grid.Row="2" Grid.Column="1"/>
+            <Button Text="C" Command="{Binding ClearCommand}" Grid.Row="3" Grid.Column="1"/>
+
+            <Button Text="9" CommandParameter="9" Style="{StaticResource FirstRowButtonStyle}" Grid.Row="0" Grid.Column="2"/>
+            <Button Text="6" CommandParameter="6" Style="{StaticResource SecondButtonStyle}" Grid.Row="1" Grid.Column="2"/>
+            <Button Text="3" CommandParameter="3" Style="{StaticResource ThirdButtonStyle}" Grid.Row="2" Grid.Column="2"/>
+            <Button Text="+" Command="{Binding AddCommand}" Grid.Row="3" Grid.Column="2"/>
         </Grid>
     </Grid>
 </ContentPage>

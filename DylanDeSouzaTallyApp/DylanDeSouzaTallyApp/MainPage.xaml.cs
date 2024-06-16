@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Xml.Schema;
 using Xamarin.Forms;
 
@@ -21,18 +22,25 @@ namespace DylanDeSouzaTallyApp
 
             if (isPortrait)
             {
-                
-                Grid.SetRow(talliedNums, 0);
-                Grid.SetColumn(talliedNums, 0);
+                Grid.SetRow(editorGrid, 0);
+                Grid.SetColumn(editorGrid, 0);
+                Grid.SetRowSpan(editorGrid, 1);
+                Grid.SetColumnSpan(editorGrid, 2);
                 Grid.SetRow(keypad, 1);
                 Grid.SetColumn(keypad, 0);
+                Grid.SetRowSpan(keypad, 1);
+                Grid.SetColumnSpan(keypad, 2);
             }
             else
             {
-                Grid.SetRow(talliedNums, 0);
-                Grid.SetColumn(talliedNums, 0);
+                Grid.SetRow(editorGrid, 0);
+                Grid.SetColumn(editorGrid, 0);
+                Grid.SetRowSpan(editorGrid, 2);
+                Grid.SetColumnSpan(editorGrid, 1);
                 Grid.SetRow(keypad, 0);
                 Grid.SetColumn(keypad, 1);
+                Grid.SetRowSpan(keypad, 2);
+                Grid.SetColumnSpan(keypad, 1);
             }
         }
 
