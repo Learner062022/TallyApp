@@ -1,86 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dylandesouzatallyapp="clr-namespace:DylanDeSouzaTallyApp"
+             x:DataType="dylandesouzatallyapp:MainPageViewModel"
              x:Class="DylanDeSouzaTallyApp.MainPage">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <Grid x:Name="innerGrid">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseButtonStyle" TargetType="Button">
+                <Setter Property="Command" Value="{Binding ButtonCommand}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="editorGrid" Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Editor IsReadOnly="True" Text="{Binding NumericString}" x:Name="talliedNums" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="End" Grid.Row="1">
+                <Label Text="Total:" />
+                <Label Text="{Binding Total}" />
+            </StackLayout>
+        </Grid>
+
+        <Grid x:Name="keypad" Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="firstColumn" Width="*"/>
-                <ColumnDefinition x:Name="secondColumn" Width="*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+            <Button Text="7" CommandParameter="7" Style="{StaticResource BaseButtonStyle}" Grid.Row="0" Grid.Column="0" />
+            <Button Text="4" CommandParameter="4" Style="{StaticResource BaseButtonStyle}" Grid.Row="1" Grid.Column="0" />
+            <Button Text="1" CommandParameter="1" Style="{StaticResource BaseButtonStyle}" Grid.Row="2" Grid.Column="0" />
+            <Button Text="0" CommandParameter="0" Style="{StaticResource BaseButtonStyle}" Grid.Row="3" Grid.Column="0" />
 
-       
-            <Grid Grid.Column="0">
-                <Editor x:Name="talliedNums" IsReadOnly="True" Margin="25"/>
-                <StackLayout x:Name="stackLayoutContainingLabels" Orientation="Horizontal" HorizontalOptions="End" Margin="0, 0, 20, 0">
-                    <Label Text="Total :" x:Name="totalLabel"/>
-                    <Label x:Name="totalAmount"/>
-                </StackLayout>
-            </Grid>
+            <Button Text="8" CommandParameter="8" Style="{StaticResource BaseButtonStyle}" Grid.Row="0" Grid.Column="1" />
+            <Button Text="5" CommandParameter="5" Style="{StaticResource BaseButtonStyle}" Grid.Row="1" Grid.Column="1" />
+            <Button Text="2" CommandParameter="2" Style="{StaticResource BaseButtonStyle}" Grid.Row="2" Grid.Column="1" />
+            <Button Text="C" Command="{Binding ClearCommand}" Grid.Row="3" Grid.Column="1" />
 
-            <Grid Grid.Column="1" Margin="50">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid Grid.Column="0">
-                            <Button Text="7" Clicked="Button_Clicked"/>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Button Text="8" Clicked="Button_Clicked"/>
-                        </Grid>
-                        <Grid Grid.Column="2">
-                            <Button Text="9" Clicked="Button_Clicked"/>
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid Grid.Column="0">
-                            <Button Text="4" Clicked="Button_Clicked"/>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Button Text="5" Clicked="Button_Clicked"/>
-                        </Grid>
-                        <Grid Grid.Column="2">
-                            <Button Text="6" Clicked="Button_Clicked"/>
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Row="2">
-                        <Grid Grid.Column="0">
-                            <Button Text="1" Clicked="Button_Clicked"/>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Button Text="2" Clicked="Button_Clicked"/>
-                        </Grid>
-                        <Grid Grid.Column="2">
-                            <Button Text="3" Clicked="Button_Clicked"/>
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Row="3">
-                        <Grid Grid.Column="0">
-                            <Button Text="0" Clicked="Button_Clicked"/>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Button Text="C" Clicked="Button_Clicked"/>
-                        </Grid>
-                        <Grid Grid.Column="2">
-                            <Button Text="+" Clicked="Button_Clicked"/>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
+            <Button Text="9" CommandParameter="9" Style="{StaticResource BaseButtonStyle}" Grid.Row="0" Grid.Column="2" />
+            <Button Text="6" CommandParameter="6" Style="{StaticResource BaseButtonStyle}" Grid.Row="1" Grid.Column="2" />
+            <Button Text="3" CommandParameter="3" Style="{StaticResource BaseButtonStyle}" Grid.Row="2" Grid.Column="2" />
+            <Button Text="+" Command="{Binding AddCommand}" Grid.Row="3" Grid.Column="2" />
         </Grid>
     </Grid>
-
 </ContentPage>
