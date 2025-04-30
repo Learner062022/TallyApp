@@ -42,29 +42,5 @@ namespace DylanDeSouzaTallyApp
             Grid.SetRowSpan(grid, rowSpan);
             Grid.SetColumnSpan(grid, columnSpan);
         }
-
-        void Button_Clicked(object sender, EventArgs e)
-        {
-            if (sender is Button button)
-            {
-                if (int.TryParse(button.Text, out _))
-                    viewModel.UpdateNumberEntered(button.Text);
-                else
-                {
-                    switch (button.Text)
-                    {
-                        case "+":
-                            viewModel.AddNumber();
-                            break;
-                        case "C":
-                            viewModel.Clear();
-                            break;
-                        default:
-                            Debug.WriteLine($"Unexpected button text: {button.Text}");
-                            break;
-                    }
-                }
-            }
-        }
     }
 }
