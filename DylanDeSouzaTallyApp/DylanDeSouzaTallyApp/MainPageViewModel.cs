@@ -8,9 +8,8 @@ namespace DylanDeSouzaTallyApp
 {
     public class MainPageViewModel : INotifyPropertyChanged
     {
-        private readonly MainPageModel _model;
-        private string _numberEntered;
-        private string _numericString;
+        readonly MainPageModel model;
+        string _numberEntered = string.Empty;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -21,7 +20,7 @@ namespace DylanDeSouzaTallyApp
 
         public MainPageViewModel()
         {
-            _model = new MainPageModel();
+            model = new MainPageModel();
             NumbersEntered = new ObservableCollection<string>();
             ButtonCommand = new Command<string>(UpdateNumberEntered);
             AddCommand = new Command(AddNumber);
@@ -32,19 +31,6 @@ namespace DylanDeSouzaTallyApp
         public ICommand AddCommand { get; }
         public ICommand ClearCommand { get; }
 
-        public string NumericString
-        {
-            get => _numericString;
-            set
-            {
-                if (_numericString != value)
-                {
-                    _numericString = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         public string NumberEntered
         {
             get => _numberEntered;
@@ -54,43 +40,35 @@ namespace DylanDeSouzaTallyApp
                 {
                     _numberEntered = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(FormattedNumbers));
                 }
             }
         }
 
-        public int Total => _model.GetTotal();
+        public int Total => model.GetTotal();
 
-        public void UpdateNumericString()
+        public string FormattedNumbers
         {
-            NumericString = NumbersEntered.Count == 0 && string.IsNullOrEmpty(NumberEntered)
-                ? string.Empty
-                : GenerateNumericString();
-        }
-
-        private string GenerateNumericString()
-        {
-            var numericString = string.Join("\n+ ", NumbersEntered);
-
-            if (!string.IsNullOrEmpty(NumberEntered))
+            get
             {
-                numericString += (NumbersEntered.Count > 0 ? " " : string.Empty) + NumberEntered;
-            }
-            else if (NumbersEntered.Count > 0)
-            {
-                numericString += "\n+ ";
-            }
+                var formattedNumbers = string.Empty;
 
-            return numericString;
+                if (NumbersEntered.Count > 0)
+                    formattedNumbers = string.Join("\n+ ", NumbersEntered);
+
+                if (!string.IsNullOrEmpty(NumberEntered))
+                    formattedNumbers += (NumbersEntered.Count > 0 ? "\n+ " : "") + NumberEntered;
+
+                return formattedNumbers;
+            }
         }
 
         public void UpdateNumberEntered(string text)
         {
-            if (int.TryParse(text, out _))
-            {
+            if (text == "+")
+                AddCurrentNumberToCollection();
+            else
                 NumberEntered += text;
-                UpdateNumericString();
-            }
-            else if (text == "+") AddCurrentNumberToCollection();
         }
 
         private void AddCurrentNumberToCollection()
@@ -99,37 +77,29 @@ namespace DylanDeSouzaTallyApp
             {
                 NumbersEntered.Add(NumberEntered);
                 NumberEntered = string.Empty;
-                UpdateNumericString();
+                OnPropertyChanged(nameof(FormattedNumbers));
             }
         }
 
         public void AddNumber()
         {
-            if (int.TryParse(NumberEntered.Replace("+ ", ""), out int result))
+            if (int.TryParse(NumberEntered, out int result))
             {
-                _model.AddNumber(result);
+                model.AddNumber(result);
                 NumbersEntered.Add(NumberEntered);
-                NumericString = string.Join("\n+ ", NumbersEntered);
                 NumberEntered = string.Empty;
-                NotifyPropertiesChanged(nameof(Total), nameof(NumericString));
+                OnPropertyChanged(nameof(Total));
+                OnPropertyChanged(nameof(FormattedNumbers));
             }
         }
 
         public void Clear()
         {
-            _model.ClearNumbers();
+            model.ClearNumbers();
             NumbersEntered.Clear();
             NumberEntered = string.Empty;
-            NumericString = string.Empty;
-            NotifyPropertiesChanged(nameof(Total), nameof(NumericString));
-        }
-
-        void NotifyPropertiesChanged(params string[] propertyNames)
-        {
-            foreach (var propertyName in propertyNames)
-            {
-                OnPropertyChanged(propertyName);
-            }
+            OnPropertyChanged(nameof(Total));
+            OnPropertyChanged(nameof(FormattedNumbers));
         }
     }
 }
