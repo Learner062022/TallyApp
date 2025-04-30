@@ -6,12 +6,12 @@ namespace DylanDeSouzaTallyApp
 {
     public partial class MainPage : ContentPage
     {
-        readonly MainPageViewModel _viewModel = new MainPageViewModel();
+        readonly MainPageViewModel viewModel = new MainPageViewModel();
 
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = _viewModel;
+            BindingContext = viewModel;
             SizeChanged += OnMainPageSizeChanged;
         }
 
@@ -19,24 +19,28 @@ namespace DylanDeSouzaTallyApp
         {
             bool isPortrait = Height > Width;
 
-            if (isPortrait) ConfigureGridLayout(editorGrid, keypad, 0, 0, 1, 2, 1, 0, 1, 2);
-            else ConfigureGridLayout(editorGrid, keypad, 0, 0, 2, 1, 0, 1, 2, 1);
+            var layouts = isPortrait
+                ? new (Grid grid, int row, int column, int rowSpan, int columnSpan)[]
+                {
+            (editorGrid, 0, 0, 1, 2),
+            (keypad, 1, 0, 1, 2)
+                }
+                : new (Grid grid, int row, int column, int rowSpan, int columnSpan)[]
+                {
+            (editorGrid, 0, 0, 2, 1),
+            (keypad, 0, 1, 2, 1)
+                };
+
+            foreach (var (grid, row, column, rowSpan, columnSpan) in layouts)
+                ConfigureLayout(grid, row, column, rowSpan, columnSpan);
         }
 
-        void ConfigureGridLayout(
-            Grid editorGrid, Grid keypad,
-            int editorRow, int editorColumn, int editorRowSpan, int editorColumnSpan,
-            int keypadRow, int keypadColumn, int keypadRowSpan, int keypadColumnSpan)
+        void ConfigureLayout(Grid grid, int row, int column, int rowSpan, int columnSpan)
         {
-            Grid.SetRow(editorGrid, editorRow);
-            Grid.SetColumn(editorGrid, editorColumn);
-            Grid.SetRowSpan(editorGrid, editorRowSpan);
-            Grid.SetColumnSpan(editorGrid, editorColumnSpan);
-
-            Grid.SetRow(keypad, keypadRow);
-            Grid.SetColumn(keypad, keypadColumn);
-            Grid.SetRowSpan(keypad, keypadRowSpan);
-            Grid.SetColumnSpan(keypad, keypadColumnSpan);
+            Grid.SetRow(grid, row);
+            Grid.SetColumn(grid, column);
+            Grid.SetRowSpan(grid, rowSpan);
+            Grid.SetColumnSpan(grid, columnSpan);
         }
 
         void Button_Clicked(object sender, EventArgs e)
@@ -44,18 +48,16 @@ namespace DylanDeSouzaTallyApp
             if (sender is Button button)
             {
                 if (int.TryParse(button.Text, out _))
-                {
-                    _viewModel.UpdateNumberEntered(button.Text);
-                }
+                    viewModel.UpdateNumberEntered(button.Text);
                 else
                 {
                     switch (button.Text)
                     {
                         case "+":
-                            _viewModel.AddNumber();
+                            viewModel.AddNumber();
                             break;
                         case "C":
-                            _viewModel.Clear();
+                            viewModel.Clear();
                             break;
                         default:
                             Debug.WriteLine($"Unexpected button text: {button.Text}");
