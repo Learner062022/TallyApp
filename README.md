@@ -1,33 +1,50 @@
-# TallyApp
+# TallyApp  
 
-## Project Overview
+## Project Overview  
+Develop an application that **tallies user numeric inputs**, dynamically **adapts to various screen sizes and orientations** and **provides real-time summation** for enhanced usability.  
 
 ### Motivation  
+Gain experience in **UI resizing techniques** and leverage the **Android Emulator** to test the application across both **phone and tablet** interfaces.  
 
 ### Goal  
+Build a **responsive numeric tallying system** that ensures **smooth interaction, real-time calculations, and adaptive UI behavior** across multiple device formats.  
 
 ### Value Proposition  
 
 ## Features
+- **Adaptive UI Layout**: Adjusts between portrait and landscape modes using a Grid-based design.
+- **Dynamic Number Entry & Summation**: Users enter numbers via an on-screen keypad, which are tallied dynamically.
+- **Formatted Numeric Display**: Entered numbers are displayed in a structured format for clarity.
+- **Real-Time Updates**: The app updates the total sum instantly as numbers are entered and added.
+- **MVVM Architecture**: Implements Model-View-ViewModel for data binding and scalable UI updates.
+- **Command-Based Interaction**: User actions are managed via Xamarin.Forms ICommand, ensuring structured event handling.
+- **Data Persistence & Reset**: Users can clear the tally, resetting entered numbers instantly.
 
 ### Core Functionalities  
+- **User Input Handling**: The app processes numeric input via a keypad-driven entry model, binding values dynamically to the UI.
+- **Event-Driven Summation**: Summation updates occur in real-time, leveraging data-binding principles in the ViewModel.
+- **State Management**: Implements structured persistence, allowing users to reset or continue tally operations without inconsistencies.
+- **UI Adaptability**: A responsive Grid-based layout ensures smooth transitions between different screen orientations.
 
-### Innovative Features  
-
-## Architecture
+## Architecture  
 
 ### Overview  
+The system follows the **MVVM architecture**, ensuring modularity and separation of concerns:  
+- **View**: UI layer displaying numeric entries and totals.  
+- **ViewModel**: Manages UI interaction logic, binding user input dynamically.  
+- **Model**: Handles numeric data processing and persistence.  
 
 ### Patterns  
+- **MVVM**: Improves maintainability by separating UI logic from business logic.  
+- **ICommand-Based Event Handling**: Ensures a scalable and structured event model.  
 
-## Tech Stack
+## Tech Stack  
 
 ### Programming Languages  
-- C#
+- **C#**  
 
 ### Frameworks and Libraries  
-- **Microsoft.Maui.Controls (9.0.50)**: UI framework for building user interfaces in the .NET MAUI application.  
-- **Microsoft.Extensions.Logging.Debug (9.03)**: Enhanced logging for debugging during development.
+- **Xamarin.Forms**: Used for building cross-platform UI with a native-like experience.
 
 ### Tools  
 - **Visual Studio Code (1.99.0)**: For writing and refining the README file.  
@@ -79,11 +96,8 @@
 
 ## Limitations
 
-## Future Improvements
-
-### Planned Features
-
-### Enhanced Testing
+- **Manual Testing Only**: All tests were performed manually.
+- **Device-Specific Validation**: The app was tested solely on the emulator, real-world performance on physical devices may differ.
 
 ## Contributing
 
