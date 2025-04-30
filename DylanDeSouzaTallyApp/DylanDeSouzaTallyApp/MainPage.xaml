@@ -28,7 +28,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Editor IsReadOnly="True" Text="{Binding NumericString}" x:Name="talliedNums" />
+            <Editor IsReadOnly="True" Text="{Binding FormattedNumbers}" />
             <StackLayout Orientation="Horizontal" HorizontalOptions="End" Grid.Row="1">
                 <Label Text="Total:" />
                 <Label Text="{Binding Total}" />
@@ -49,18 +49,19 @@
             </Grid.ColumnDefinitions>
 
             <Button Text="7" CommandParameter="7" Style="{StaticResource BaseButtonStyle}" Grid.Row="0" Grid.Column="0" />
-            <Button Text="4" CommandParameter="4" Style="{StaticResource BaseButtonStyle}" Grid.Row="1" Grid.Column="0" />
-            <Button Text="1" CommandParameter="1" Style="{StaticResource BaseButtonStyle}" Grid.Row="2" Grid.Column="0" />
-            <Button Text="0" CommandParameter="0" Style="{StaticResource BaseButtonStyle}" Grid.Row="3" Grid.Column="0" />
-
             <Button Text="8" CommandParameter="8" Style="{StaticResource BaseButtonStyle}" Grid.Row="0" Grid.Column="1" />
-            <Button Text="5" CommandParameter="5" Style="{StaticResource BaseButtonStyle}" Grid.Row="1" Grid.Column="1" />
-            <Button Text="2" CommandParameter="2" Style="{StaticResource BaseButtonStyle}" Grid.Row="2" Grid.Column="1" />
-            <Button Text="C" Command="{Binding ClearCommand}" Grid.Row="3" Grid.Column="1" />
-
             <Button Text="9" CommandParameter="9" Style="{StaticResource BaseButtonStyle}" Grid.Row="0" Grid.Column="2" />
+
+            <Button Text="4" CommandParameter="4" Style="{StaticResource BaseButtonStyle}" Grid.Row="1" Grid.Column="0" />
+            <Button Text="5" CommandParameter="5" Style="{StaticResource BaseButtonStyle}" Grid.Row="1" Grid.Column="1" />
             <Button Text="6" CommandParameter="6" Style="{StaticResource BaseButtonStyle}" Grid.Row="1" Grid.Column="2" />
+
+            <Button Text="1" CommandParameter="1" Style="{StaticResource BaseButtonStyle}" Grid.Row="2" Grid.Column="0" />
+            <Button Text="2" CommandParameter="2" Style="{StaticResource BaseButtonStyle}" Grid.Row="2" Grid.Column="1" />
             <Button Text="3" CommandParameter="3" Style="{StaticResource BaseButtonStyle}" Grid.Row="2" Grid.Column="2" />
+
+            <Button Text="0" CommandParameter="0" Style="{StaticResource BaseButtonStyle}" Grid.Row="3" Grid.Column="0" />
+            <Button Text="C" Command="{Binding ClearCommand}" Grid.Row="3" Grid.Column="1" />
             <Button Text="+" Command="{Binding AddCommand}" Grid.Row="3" Grid.Column="2" />
         </Grid>
     </Grid>
