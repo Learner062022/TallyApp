@@ -95,7 +95,6 @@ The system follows the **MVVM architecture**, ensuring modularity and separation
 ## Testing and Validation
 
 ## Limitations
-
 - **Manual Testing Only**: All tests were performed manually.
 - **Device-Specific Validation**: The app was tested solely on the emulator, real-world performance on physical devices may differ.
 
